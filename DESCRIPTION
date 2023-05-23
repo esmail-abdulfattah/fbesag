@@ -10,5 +10,5 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Collate: get_fbesag.R
-Library: src/fbesag.so
+Library: src/pbesag.so
 RoxygenNote: 7.2.1

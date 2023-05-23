@@ -1,6 +1,7 @@
 
 # Load initialization script
-print(getwd())
+
+#dyn.load(system.file("./src", "fbesag.so", package = "fbesag"))
 
 # Define internal functions that use the shared object
 

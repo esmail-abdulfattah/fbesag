@@ -201,6 +201,8 @@ print(getwd())
 #' @export
 get_fbesag <- function(graph, id_p, sd_gamma, param = list(p1 = 1, p2 = 1e-5), initial = c(-999)){
 
+  suppressPackageStartupMessages(library(INLA))
+
   num_p <- length(unique(id_p))
   res <- .wrapper_pbesag(graph, id = id_p, sd_gamma = sd_gamma, param = list(p1 = 1, p2 = 1e-5))
   if(initial[1]==-999){

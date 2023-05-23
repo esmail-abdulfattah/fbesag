@@ -231,7 +231,7 @@
 get_fbesag <- function(graph, id_p, sd_gamma, param = list(p1 = 1, p2 = 1e-5), initial = c(-999)){
 
   source("/home/abdulfe/R/x86_64-pc-linux-gnu-library/4.2/fbesag/wrapper/subregions.R")
-  get_model(graph = graph, id_p = id_p, sd_gamma = sd_gamma, param = list(p1 = p1, p2 = p2), initial = initial)
+  get_pbesag(graph=graph, id = id_p, sd_gamma = sd_gamma, param = list(p1 = p1, p2 = p2), initial = initial)
 
 }
 

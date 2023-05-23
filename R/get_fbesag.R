@@ -1,8 +1,7 @@
 
 # Load initialization script
 
-dyn.load(system.file("./src", "fbesag.so", package = "fbesag"))
-dyn.load(system.file("./inst", "fbesag.so", package = "fbesag"))
+#dyn.load(system.file("./src", "fbesag.so", package = "fbesag"))
 
 # Define internal functions that use the shared object
 
@@ -216,7 +215,7 @@ get_fbesag <- function(graph, id_p, sd_gamma, param = list(p1 = 1, p2 = 1e-5), i
   }
   dir <- system.file(package="fbesag")
   up_dir <- paste(dir, "/fbesag.so", sep ="")
-  dyn.load(up_dir)
+  #dyn.load(up_dir)
 
   cmodel <- INLA::inla.cgeneric.define(model = "inla.rgeneric.pbesag.model",
                                  shlib = "fbesag.so", n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),

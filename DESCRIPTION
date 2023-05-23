@@ -12,5 +12,5 @@ LazyData: true
 Collate:
   get_fbesag.R
 Library:
-  src/myfile.so
+  src/fbesag.so
 RoxygenNote: 7.2.1

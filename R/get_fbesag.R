@@ -213,8 +213,10 @@ get_fbesag <- function(graph, id_p, sd_gamma, param = list(p1 = 1, p2 = 1e-5), i
       stop("Error: Initial vector of theta has wrong length")
     }
   }
+  dir <- system.file(package="fbesag")
+  up_dir <- paste(dir, "/inst/fbesag.so", sep ="")
   cmodel <- INLA::inla.cgeneric.define(model = "inla.rgeneric.pbesag.model",
-                                 shlib = "./src/fbesag.so", n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),
+                                 shlib = up_dir, n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),
                                  invSig = res$invSig, misc = as.integer(res$v2), initial = initial)
 
   return(cmodel)

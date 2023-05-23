@@ -1,7 +1,8 @@
 
 # Load initialization script
 
-#dyn.load(system.file("./src", "fbesag.so", package = "fbesag"))
+dyn.load(system.file("./src", "fbesag.so", package = "fbesag"))
+dyn.load(system.file("./inst", "fbesag.so", package = "fbesag"))
 
 # Define internal functions that use the shared object
 

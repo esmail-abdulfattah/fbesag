@@ -75,7 +75,7 @@
     }
 
     theta_p = log(prec)
-    sigm2 <- sd_sim^2
+    sigm2 <- sd_gamma^2
 
     mean_theta <- mean(theta_p)
     P = npart
@@ -241,7 +241,7 @@
     }
 
     theta_p = log(prec)
-    sigm2 <- sd_sim^2
+    sigm2 <- sd_gamma^2
 
     mean_theta <- mean(theta_p)
     P = npart
@@ -400,10 +400,10 @@ wrapper_pbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 
 }
 
 
-get_pbesag <- function(graph, id_p, sd_sim, param = list(p1 = 1, p2 = 1e-5), initial = c(-999)){
+get_pbesag <- function(graph, id_p, sd_gamma, param = list(p1 = 1, p2 = 1e-5), initial = c(-999)){
 
   num_p <- length(unique(id_p))
-  res <- wrapper_pbesag(graph, id = id_p, sd_gamma = sd_sim, param = list(p1 = 1, p2 = 1e-5))
+  res <- wrapper_pbesag(graph, id = id_p, sd_gamma = sd_gamma, param = list(p1 = 1, p2 = 1e-5))
   if(initial[1]==-999){
     initial <- rep(4, num_p)
   }else{

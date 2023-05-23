@@ -219,7 +219,7 @@ get_fbesag <- function(graph, id_p, sd_gamma, param = list(p1 = 1, p2 = 1e-5), i
   #setwd("/home/abdulfe/R/x86_64-pc-linux-gnu-library/4.2/fbesag/")
 
   cmodel <- INLA::inla.cgeneric.define(model = "inla.rgeneric.pbesag.model",
-                                 shlib = "/home/abdulfe/R/x86_64-pc-linux-gnu-library/4.2/fbesag/pbesag.so", n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),
+                                 shlib = "/home/abdulfe/R/x86_64-pc-linux-gnu-library/4.2/fbesag/wrapper/pbesag.so", n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),
                                  invSig = res$invSig, misc = as.integer(res$v2), initial = initial)
 
   return(cmodel)

@@ -214,10 +214,10 @@ get_fbesag <- function(graph, id_p, sd_gamma, param = list(p1 = 1, p2 = 1e-5), i
     }
   }
 
-  dyn.load(system.file(system.file(package="fbesag"), "fbesag.so", package = "fbesag"))
-
+  txt_fbesag <- paste(system.file(package="fbesag"),"/fbesag.so",sep="")
+  #dyn.load(paste(system.file(package="fbesag"),"/fbesag.so",sep=""))
   cmodel <- INLA::inla.cgeneric.define(model = "inla.rgeneric.pbesag.model",
-                                 shlib = "fbesag.so", n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),
+                                 shlib = txt_fbesag, n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),
                                  invSig = res$invSig, misc = as.integer(res$v2), initial = initial)
 
   return(cmodel)

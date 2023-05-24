@@ -1,13 +1,10 @@
 
-#rm(list=ls())
-#this can be added to partitions package:
 
-
-wrapper_pbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 1e-5)){
+wrapper_pbesag <- function(graph, id_s, sd_gamma = 0.2, param = list(p1 = 1, p2 = 1e-5)){
 
   lam <- - log(param$p2)/param$p1
   n <- dim(graph)[1]
-  P <- length(unique(id))
+  P <- length(unique(id_s))
   g <- inla.read.graph(graph)
 
   constr.inter <- list(A = matrix(1,1,dim(graph)[1]), e = rep(0, 1))
@@ -38,8 +35,8 @@ wrapper_pbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 
         ii <- c(ii, i)
         jj <- c(jj, i)
       }
-    }
 
+    }
     return(c(g$n, length(ii), ii-1,jj-1))
 
   }
@@ -55,8 +52,8 @@ wrapper_pbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 
 
       num_nei_i <- g$nnbs[i]
       one_vector <- c(one_vector, num_nei_i)
-      mas_prec <- prec[id_p[i]]
-      one_vector <- c(one_vector, id_p[i]-1)
+      mas_prec <- prec[id_s[i]]
+      one_vector <- c(one_vector, id_s[i]-1)
       size_neighbors <- length(g$nbs[[i]])
       one_vector <- c(one_vector, size_neighbors)
       g$nbs[[i]] <- sort(c(g$nbs[[i]]))
@@ -68,8 +65,8 @@ wrapper_pbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 
       k = k + 1
       for(j in 1:size_neighbors){
         tick <- g$nbs[[i]][j]
-        tmp_neighbors[j] <- -0.5*prec[c(id_p[tick])]
-        one_vector <- c(one_vector, id_p[tick]-1)
+        tmp_neighbors[j] <- -0.5*prec[c(id_s[tick])]
+        one_vector <- c(one_vector, id_s[tick]-1)
 
         one_vector <- c(one_vector, tick-1)
         if(tick>i){
@@ -84,6 +81,7 @@ wrapper_pbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 
     }
 
     return(one_vector)
+
   }
 
   VEC_CGENERIC_GRAPH <- INLA_CGENERIC_GRAPH(g)
@@ -94,10 +92,10 @@ wrapper_pbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 
 }
 
 
-get_pbesag <- function(graph, id_p, sd_gamma, param = list(p1 = 1, p2 = 1e-5), initial = c(-999)){
+connection <- function(graph, id, sd_gamma, param, initial){
 
-  num_p <- length(unique(id_p))
-  res <- wrapper_pbesag(graph, id = id_p, sd_gamma = sd_gamma, param = list(p1 = 1, p2 = 1e-5))
+  num_p <- length(unique(id))
+  res <- wrapper_pbesag(graph, id_s = id, sd_gamma = sd_gamma, param = param)
   if(initial[1]==-999){
     initial <- rep(4, num_p)
   }else{

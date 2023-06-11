@@ -109,7 +109,7 @@
       libpath <- INLA::inla.external.lib("fbesag")
     } else {
       if (Sys.info()["sysname"] == "Windows") {
-        libpath <- paste(find.package("fbesag"), "/libs/INLAspacetime.dll", sep="")
+        libpath <- paste(find.package("fbesag"), "/libs/fbesag.dll", sep="")
       } else {
         libpath <- paste(find.package("fbesag"), "/libs/fbesag.so", sep="")
       }

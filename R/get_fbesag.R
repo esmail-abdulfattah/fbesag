@@ -109,9 +109,23 @@
       libpath <- INLA::inla.external.lib("fbesag")
     } else {
       if (Sys.info()["sysname"] == "Windows") {
-        libpath <- paste(find.package("fbesag"), "/libs/fbesag.dll", sep="")
+        files <- list.files(find.package("fbesag"), pattern = "fbesag.dll", recursive = TRUE, full.names = TRUE)
+        if (length(files) > 0) {
+          file_dir <- dirname(files[1])
+          print(file_dir)
+        } else {
+          print("File not found.")
+        }
+        libpath <- paste(file_dir, "/fbesag.dll", sep="")
       } else {
-        libpath <- paste(find.package("fbesag"), "/libs/fbesag.so", sep="")
+        files <- list.files(find.package("fbesag"), pattern = "fbesag.so", recursive = TRUE, full.names = TRUE)
+        if (length(files) > 0) {
+          file_dir <- dirname(files[1])
+          print(file_dir)
+        } else {
+          print("File not found.")
+        }
+        libpath <- paste(file_dir, "/fbesag.so", sep="")
       }
     }
   }

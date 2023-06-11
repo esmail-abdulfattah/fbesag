@@ -103,6 +103,7 @@
     }
   }
 
+  libpath <- NULL
   if (is.null(libpath)) {
     if (useINLAprecomp) {
       libpath <- INLA::inla.external.lib("fbesag")
@@ -122,18 +123,10 @@
   return(cmodel)
 }
 
-id = id_p
-sd_gamma = sd_sim
-param = list(p1 = 1, p2 = 1e-5)
-initial = c(-999)
-
 #' @param X a parameter
 #' @return the same thing
 #' @export
 get_fbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 1e-5), initial = c(-999), useINLAprecomp = FALSE){
-
-  #getit <- paste(find.package("fbesag"), "/wrapper/subregions.R", sep="")
-  #source(getit)
 
   return(.connection(graph=graph, id = id, sd_gamma = sd_gamma, param = param, initial = initial, useINLAprecomp = useINLAprecomp))
 }

@@ -14,7 +14,7 @@ fbesag.$(SHARED_LIB_EXT): fbesag.o
 	$(CC) -shared -o fbesag.$(SHARED_LIB_EXT) fbesag.o 
 
 fbesag.o: fbesag.c
-	$(CC) $(CFLAGS) -c -o fbesag.o fbesag.c -fopenmp
+	$(CC) $(CFLAGS) -c -o fbesag.o fbesag.c
 
 clean:
 	rm -f fbesag.o fbesag.$(SHARED_LIB_EXT)

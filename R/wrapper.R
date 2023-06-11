@@ -1,6 +1,5 @@
 
-
-wrapper_pbesag <- function(graph, id_s, sd_gamma = 0.2, param = list(p1 = 1, p2 = 1e-5)){
+.wrapper_pbesag <- function(graph, id_s, sd_gamma = 0.2, param = list(p1 = 1, p2 = 1e-5)){
 
   lam <- - log(param$p2)/param$p1
   n <- dim(graph)[1]
@@ -92,10 +91,10 @@ wrapper_pbesag <- function(graph, id_s, sd_gamma = 0.2, param = list(p1 = 1, p2 
 }
 
 
-connection <- function(graph, id, sd_gamma, param, initial){
+.connection <- function(graph, id, sd_gamma, param, initial){
 
   num_p <- length(unique(id))
-  res <- wrapper_pbesag(graph, id_s = id, sd_gamma = sd_gamma, param = param)
+  res <- .wrapper_pbesag(graph, id_s = id, sd_gamma = sd_gamma, param = param)
   if(initial[1]==-999){
     initial <- rep(4, num_p)
   }else{
@@ -103,8 +102,10 @@ connection <- function(graph, id, sd_gamma, param, initial){
       stop("Error: Initial vector of theta has wrong length")
     }
   }
+
+  libpath <- INLA::inla.external.lib("fbesag")
   cmodel <- inla.cgeneric.define(model = "inla_cgeneric_pbesag_model",
-                                 shlib = "pbesag.so", n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),
+                                 shlib = libpath, n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),
                                  invSig = res$invSig, misc = as.integer(res$v2), initial = initial)
 
   return(cmodel)

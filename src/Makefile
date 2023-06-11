@@ -11,7 +11,7 @@ endif
 all: fbesag.$(SHARED_LIB_EXT)
 
 fbesag.$(SHARED_LIB_EXT): fbesag.o
-	$(CC) -shared -o fbesag.$(SHARED_LIB_EXT) fbesag.o
+	$(CC) -shared -o fbesag.$(SHARED_LIB_EXT) fbesag.o -fopenmp
 
 fbesag.o: fbesag.c
 	$(CC) $(CFLAGS) -c -o fbesag.o fbesag.c

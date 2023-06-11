@@ -91,7 +91,7 @@
 }
 
 
-.connection <- function(graph, id, sd_gamma, param, initial){
+.connection <- function(graph, id, sd_gamma, param, initial, useINLAprecomp){
 
   num_p <- length(unique(id))
   res <- .wrapper_pbesag(graph, id_s = id, sd_gamma = sd_gamma, param = param)
@@ -103,7 +103,18 @@
     }
   }
 
-  libpath <- INLA::inla.external.lib("fbesag")
+  if (is.null(libpath)) {
+    if (useINLAprecomp) {
+      libpath <- INLA::inla.external.lib("fbesag")
+    } else {
+      if (Sys.info()["sysname"] == "Windows") {
+        libpath <- paste(find.package("fbesag"), "/libs/INLAspacetime.dll", sep="")
+      } else {
+        libpath <- paste(find.package("fbesag"), "/libs/fbesag.so", sep="")
+      }
+    }
+  }
+
   cmodel <- inla.cgeneric.define(model = "inla_cgeneric_pbesag_model",
                                  shlib = libpath, n = as.integer(res$n), npart = res$P, VEC_CGENERIC_GRAPH = as.integer(res$v1), debug = FALSE,  lam=c(res$lam),
                                  invSig = res$invSig, misc = as.integer(res$v2), initial = initial)
@@ -111,15 +122,20 @@
   return(cmodel)
 }
 
+id = id_p
+sd_gamma = sd_sim
+param = list(p1 = 1, p2 = 1e-5)
+initial = c(-999)
 
 #' @param X a parameter
 #' @return the same thing
 #' @export
-get_fbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 1e-5), initial = c(-999)){
+get_fbesag <- function(graph, id, sd_gamma = 0.2, param = list(p1 = 1, p2 = 1e-5), initial = c(-999), useINLAprecomp = FALSE){
 
   #getit <- paste(find.package("fbesag"), "/wrapper/subregions.R", sep="")
   #source(getit)
-  .connection(graph=graph, id = id, sd_gamma = sd_gamma, param = param, initial = initial)
+
+  return(.connection(graph=graph, id = id, sd_gamma = sd_gamma, param = param, initial = initial, useINLAprecomp = useINLAprecomp))
 }
 
 

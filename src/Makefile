@@ -11,10 +11,10 @@ endif
 all: fbesag.$(SHARED_LIB_EXT)
 
 fbesag.$(SHARED_LIB_EXT): fbesag.o
-	$(CC) -shared -o fbesag.$(SHARED_LIB_EXT) fbesag.o -fopenmp
+	$(CC) -shared -o fbesag.$(SHARED_LIB_EXT) fbesag.o 
 
 fbesag.o: fbesag.c
-	$(CC) $(CFLAGS) -c -o fbesag.o fbesag.c
+	$(CC) $(CFLAGS) -c -o fbesag.o fbesag.c -fopenmp
 
 clean:
 	rm -f fbesag.o fbesag.$(SHARED_LIB_EXT)

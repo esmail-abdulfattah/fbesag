@@ -7,7 +7,7 @@
   g <- inla.read.graph(graph)
 
   constr.inter <- list(A = matrix(1,1,dim(graph)[1]), e = rep(0, 1))
-  scaled_graph = as.matrix(inla.scale.model(graph,constr.inter))
+  scaled_graph = as.matrix(INLA:::inla.scale.model(graph,constr.inter))
   scaled_cnst = scaled_graph[1,1]/graph[1,1]
 
   sigm2 <- sd_gamma*sd_gamma

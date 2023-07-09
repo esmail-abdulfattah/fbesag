@@ -56,6 +56,7 @@
       size_neighbors <- length(g$nbs[[i]])
       one_vector <- c(one_vector, size_neighbors)
       g$nbs[[i]] <- sort(c(g$nbs[[i]]))
+      g$nbs[[i]] <- na.omit(g$nbs[[i]])
 
       tmp_neighbors <- c()
       sum_tmp_neighbors <- 0

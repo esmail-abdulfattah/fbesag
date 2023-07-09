@@ -33,5 +33,8 @@ If you are using windows you should replace "pbesag.so" by "pbesag.dll" in the g
 
 ## Option 3: Using only R code.
 
+This option could be a bit slower, since you are using fully R code for fbesag, but it is the easiest if the previous two options didn't work. 
+Three files are provided for each option at:
 
+https://github.com/esmail-abdulfattah/fbesag/tree/master/inst
 

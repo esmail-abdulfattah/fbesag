@@ -1,13 +1,11 @@
-
 #include <assert.h>
-#include <iostream>
 
 #if !defined(__FreeBSD__)
-#include <malloc.h>
 #endif
 #include <math.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <stdbool.h>
 #include "cgeneric.h"
 #define Calloc(n_, type_) (type_ *)calloc((n_), sizeof(type_))
 #define SQR(x) ((x)*(x)) 
@@ -15,7 +13,7 @@
 double *inla_cgeneric_pbesag_model(inla_cgeneric_cmd_tp cmd, double *theta, inla_cgeneric_data_tp * data)
 {
     bool debug = false;
-    double *ret = NULL, *prec = NULL, lprec = (theta ? theta[0] : NAN);
+    double *ret = NULL, *prec = NULL; //lprec = (theta ? theta[0] : NAN);
     assert(!strcasecmp(data->ints[0]->name, "n"));
     int N = data->ints[0]->ints[0];
     assert(N > 0);
@@ -29,7 +27,8 @@ double *inla_cgeneric_pbesag_model(inla_cgeneric_cmd_tp cmd, double *theta, inla
     }
 
     if(debug){
-
+	
+	/*
         std::cout << npart << std::endl;
 
         for(int i=0; i<10; i++) //VEC_CGENERIC_GRAPH
@@ -42,7 +41,7 @@ double *inla_cgeneric_pbesag_model(inla_cgeneric_cmd_tp cmd, double *theta, inla
     
         std::cout << data->doubles[0]->doubles[0] << " -pc- " << std::endl;
         std::cout << data->doubles[1]->doubles[0] << " -sd- " << std::endl;
-
+	*/
     }
 
     switch (cmd) {
